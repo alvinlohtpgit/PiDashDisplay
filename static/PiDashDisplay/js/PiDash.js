@@ -24,3 +24,30 @@
       setInterval(GetClock,1000);
   }
 
+
+
+  $(document).ready(function(){
+
+      // On page load, get the weather
+        $.ajax({
+          method: "GET",
+          url: "getTemp"
+        }).done(function( msg ) {
+            // Display the image
+
+            // Update the span text to display the weather
+            $("#forecastdisplaypanel").html(msg);
+        });
+
+        // On page load, get the temperature also
+        $.ajax({
+          method: "GET",
+          url: "getTemp"
+        }).done(function( msg ) {
+            // Display the image
+
+            // Update the span text to display the weather
+            $("#forecastdisplaypanel").html(msg);
+        });
+  }); // Close document ready
+
