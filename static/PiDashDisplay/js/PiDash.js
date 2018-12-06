@@ -31,7 +31,7 @@
       // On page load, get the weather
         $.ajax({
           method: "GET",
-          url: "getTemp"
+          url: "getWeather"
         }).done(function( msg ) {
             // Display the image
 
@@ -47,7 +47,7 @@
             // Display the image
 
             // Update the span text to display the weather
-            $("#forecastdisplaypanel").html(msg);
+            $("#tempdisplaypanel").html(msg);
         });
   }); // Close document ready
 
