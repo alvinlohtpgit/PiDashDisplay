@@ -19,21 +19,35 @@
       document.getElementById('datedisplaypanel').innerHTML=""+tday[nday]+", "+tmonth[nmonth]+" "+ndate+", "+nyear+" "+nhour+":"+nmin+ap+"";
   }
 
-  window.onload=function(){
-      GetClock();
-      setInterval(GetClock,1000);
-  }
-
-
 
   $(document).ready(function(){
 
-      // On page load, get the weather
+
+      function loadWeatherAndTemp(){
+          // On page load, get the weather
         $.ajax({
           method: "GET",
           url: "getWeather"
         }).done(function( msg ) {
             // Display the image
+            if (msg.includes('Thundery Showers') == true){
+                $("#weatherimagepanel").html("<img src='/static/PiDashDisplay/images/thundershower.png' />");
+            }
+            else if (msg == "Showers"){
+                $("#weatherimagepanel").html("<img src='/static/PiDashDisplay/images/shower.png' />");
+            }
+            else if ((msg == "Light Showers") || (msg == "Light Rain")){
+                $("#weatherimagepanel").html("<img src='/static/PiDashDisplay/images/lightshower.png' />");
+            }
+            else if (msg == "Partly Cloudy"){
+                $("#weatherimagepanel").html("<img src='/static/PiDashDisplay/images/partlycloudy.png' />");
+            }
+            else if (msg == "Cloudy"){
+                $("#weatherimagepanel").html("<img src='/static/PiDashDisplay/images/cloudy.png' />");
+            }
+            else if (msg == "Fair"){
+                $("#weatherimagepanel").html("<img src='/static/PiDashDisplay/images/sunny.png' />");
+            }
 
             // Update the span text to display the weather
             $("#forecastdisplaypanel").html(msg);
@@ -44,10 +58,15 @@
           method: "GET",
           url: "getTemp"
         }).done(function( msg ) {
-            // Display the image
-
             // Update the span text to display the weather
             $("#tempdisplaypanel").html(msg);
         });
+      }
+
+      GetClock();
+      loadWeatherAndTemp();
+      setInterval(GetClock,1000);
+      setInterval(loadWeatherAndTemp, 1800000);
+
   }); // Close document ready
 
