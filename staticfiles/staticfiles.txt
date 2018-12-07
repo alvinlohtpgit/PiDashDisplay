@@ -1,0 +1,1 @@
+Place holder because Git cannot handle empty directories
