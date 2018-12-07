@@ -25,7 +25,7 @@ SECRET_KEY = 'i25c_-97vas-pu(%bljhpjms+(mlh2a896e6uywcak_iw(1077'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pidashdisp.herokuapp.com', 'localhost']
 
 
 # Application definition
