@@ -61,7 +61,7 @@ def getTemperature(request):
     area_name = 'Scotts Road'
 
     # Set the time to query for 3 minutes before
-    history_time = datetime.datetime.now() - datetime.timedelta(minutes=3)
+    history_time = datetime.datetime.now() - datetime.timedelta(minutes=10)
     history_time_string = history_time.strftime('%Y-%m-%dT%H:%M:00')
 
     url_to_send = Template('$apiurl?$querykey=$timestring')
@@ -69,6 +69,7 @@ def getTemperature(request):
     url_to_send = url_to_send.substitute(apiurl=api_url, querykey=query_key, timestring=history_time_string)
 
     # Send the entire request string to the API
+    print(url_to_send)
     req = requests.get(url_to_send)
 
     # req will hold the entire JSON response
