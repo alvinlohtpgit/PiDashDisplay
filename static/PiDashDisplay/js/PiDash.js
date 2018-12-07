@@ -33,7 +33,7 @@
             if (msg.includes('Thundery Showers') == true){
                 $("#weatherimagepanel").html("<img src='/static/PiDashDisplay/images/thundershower.png' />");
             }
-            else if (msg == "Showers"){
+            else if ((msg == "Moderate Rain") || (msg == "Showers")){
                 $("#weatherimagepanel").html("<img src='/static/PiDashDisplay/images/shower.png' />");
             }
             else if ((msg == "Light Showers") || (msg == "Light Rain")){
