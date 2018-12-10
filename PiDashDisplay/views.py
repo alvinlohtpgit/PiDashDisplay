@@ -49,7 +49,6 @@ def getWeather(request):
 
     return HttpResponse(forecastValue)
 
-
 def getTemperature(request):
     import requests
     from string import Template
