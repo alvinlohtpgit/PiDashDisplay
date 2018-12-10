@@ -25,7 +25,7 @@ SECRET_KEY = 'i25c_-97vas-pu(%bljhpjms+(mlh2a896e6uywcak_iw(1077'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pidashdisp.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['pidashdisp.herokuapp.com', 'localhost', 'b4f0eaf4.ngrok.io']
 
 
 # Application definition
@@ -76,14 +76,21 @@ WSGI_APPLICATION = 'PiDashDisp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'PiDashDispDB',
+#        'USER': 'piddusr',
+#        'PASSWORD': 'M8S24Vds',
+#        'HOST': '10.129.120.49',
+#        'PORT': '33061'
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'PiDashDispDB',
-        'USER': 'piddusr',
-        'PASSWORD': 'M8S24Vds',
-        'HOST': '10.129.120.49',
-        'PORT': '33061'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
