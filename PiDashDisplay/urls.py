@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('getWeather', views.getWeather, name='getWeather'),
     path('getTemp', views.getTemperature, name='getTemp'),
+    path('feederendpoint', views.feederendpoint, name='feederendpoint'),
 ]

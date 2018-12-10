@@ -1,8 +1,11 @@
 import requests
 import datetime
+import json
 from string import Template
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from PiDashDisplay.models import Feedsource, Feed
 
 # Create your views here.
 def home(request):
@@ -48,7 +51,6 @@ def getWeather(request):
         forecastValue = forecastValue[0:forecastValue.find(" (")]
 
     return HttpResponse(forecastValue)
-
 
 def getTemperature(request):
     import requests
@@ -98,3 +100,55 @@ def getTemperature(request):
 
     return HttpResponse(stationTemperatureReading)
 
+@csrf_exempt
+def feederendpoint(request):
+    if request.method == "POST":
+        postString = request.body
+        jsonArray = json.loads(postString)
+
+        # Parse the source feed first
+        sourceFeedUrl = jsonArray.get('status').get('feed')
+        print('Source Feed URL ' + sourceFeedUrl)
+
+        # Parse the source feed title
+        sourceFeedTitle = jsonArray.get('title')
+        print('Source Feed Title ' + sourceFeedTitle)
+
+        # Create the source feed if it does not exist
+        countSourceFeed = Feedsource.objects.filter(source=sourceFeedUrl).count()
+
+        fs = Feedsource()
+
+        if countSourceFeed == 0:
+            # Create the source
+            fs = Feedsource(source=sourceFeedUrl, title=sourceFeedTitle)
+            fs.save()
+
+        else:
+            # Load the feed source
+            fs = Feedsource.objects.filter(source=sourceFeedUrl).first()
+
+
+        # Loop through the returned items and add them to the feed source
+        for currentItem in jsonArray.get('items'):
+            itemFeedID = currentItem.get('id')
+            itemTitle = currentItem.get('title')
+            itemPermaLink = currentItem.get('permalinkUrl')
+            itemSummary = currentItem.get('summary')
+            itemThumbnail = ''
+
+            if currentItem.get('standardLinks').get('thumbnail') != None:
+                itemThumbnail = currentItem.get('standardLinks').get('thumbnail')[0].get('href')
+
+            #print('Feed : ' + itemFeedID)
+            #print('Title : ' + itemTitle)
+            #print('Link : ' + itemPermaLink)
+            #print('Summary : ' + itemSummary)
+            #print('Thumbnail : ' + itemThumbnail)
+
+            # Write to db
+            newEntry = fs.feed_set.create(feedid=itemFeedID, title=itemTitle, summary=itemSummary, destinationurl=itemPermaLink, thumbnail=itemThumbnail)
+
+        print("Inserted " + itemFeedID)
+
+    return HttpResponse('Ok')
