@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+### AlvinIgnore template
+.idea
+venv
+PiDashDisp/__pycache__/
+PiDashDisplay/__pycache__/
+PiDashDisplay/migrations/__pycache__/
+__pycache__/
