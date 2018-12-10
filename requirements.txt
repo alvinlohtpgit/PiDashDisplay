@@ -5,4 +5,4 @@ requests
 datetime
 Template
 whitenoise
-mysqlclient
+psycopg2-binary
