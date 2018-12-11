@@ -6,14 +6,22 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from PiDashDisplay.models import Feedsource, Feed
+import pusher
 
 # Create your views here.
 def home(request):
 
     # Grab the latest 2 news when there is a new news alert
-    latest_news = Feed.objects.order_by("datecreated")[:2]
+    latest_news = Feed.objects.order_by("datecreated")[:3]
 
-    return render(request, 'PiDashDisplay/home.html', {latest_news:})
+    return render(request, 'PiDashDisplay/home.html', {'latest_news': latest_news})
+
+
+def newspaneldisplay(request):
+    # Grab the latest 2 news when there is a new news alert
+    latest_news = Feed.objects.order_by("datecreated")[:3]
+
+    return render(request, 'PiDashDisplay/newspanel.html', {'latest_news': latest_news})
 
 
 def getWeather(request):
@@ -26,15 +34,20 @@ def getWeather(request):
     history_time = datetime.datetime.now() - datetime.timedelta(minutes=3)
     history_time_string = history_time.strftime('%Y-%m-%dT%H:%M:00')
 
+
     url_to_send = Template('$apiurl?$querykey=$timestring')
 
+
     url_to_send = url_to_send.substitute(apiurl=api_url, querykey=query_key, timestring=history_time_string)
+
 
     # Send the entire request string to the API
     req = requests.get(url_to_send)
 
     # req will hold the entire JSON response
     jsonResponse = req.json()
+
+
     areaArray = jsonResponse['area_metadata']  # We do not need this as we already know the area name
 
     # Grab the forecast list
@@ -102,6 +115,19 @@ def getTemperature(request):
 
     return HttpResponse(stationTemperatureReading)
 
+
+def testPush(request):
+    pusher_client = pusher.Pusher(
+        app_id='669537',
+        key='9a5b1aa0f0d8bf706b96',
+        secret='2034f0df0f39da9e8a59',
+        cluster='ap1',
+        ssl=True
+    )
+
+    pusher_client.trigger('PiDashDispChannel', 'refreshnews', {'message': 'hello world'})
+    return HttpResponse("OK")
+
 @csrf_exempt
 def feederendpoint(request):
     if request.method == "POST":
@@ -156,5 +182,16 @@ def feederendpoint(request):
             if countFeed < 1:
                 newEntry = fs.feed_set.create(feedid=itemFeedID, title=itemTitle, summary=itemSummary, destinationurl=itemPermaLink, thumbnail=itemThumbnail)
                 print("Inserted " + itemFeedID)
+
+                pusher_client = pusher.Pusher(
+                    app_id='669537',
+                    key='9a5b1aa0f0d8bf706b96',
+                    secret='2034f0df0f39da9e8a59',
+                    cluster='ap1',
+                    ssl=True
+                )
+
+                pusher_client.trigger('PiDashDispChannel', 'refreshnews', {'feedid': itemFeedID})
+
 
     return HttpResponse('Ok')

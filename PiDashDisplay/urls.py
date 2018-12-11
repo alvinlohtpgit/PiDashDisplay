@@ -7,4 +7,6 @@ urlpatterns = [
     path('getWeather', views.getWeather, name='getWeather'),
     path('getTemp', views.getTemperature, name='getTemp'),
     path('feederendpoint', views.feederendpoint, name='feederendpoint'),
+    path('newspaneldisplay', views.newspaneldisplay, name='newspaneldisplay'),
+    path('testpush', views.testPush, name='testpush'),
 ]

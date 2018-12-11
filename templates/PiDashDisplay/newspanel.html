@@ -1,0 +1,10 @@
+{% for currentNews in latest_news %}
+    <div class="row newsitem">
+        <div class="col-md-2">
+            <div class="newsitemimage"><img src='{{ currentNews.thumbnail }}' height="30" /></div>
+        </div>
+        <div class="col-md-10">
+            <div class="newsitemcontent">{{ currentNews.title }}</div>
+        </div>
+    </div>
+{% endfor %}

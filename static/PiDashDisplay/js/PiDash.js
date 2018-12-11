@@ -68,5 +68,29 @@
       setInterval(GetClock,1000);
       setInterval(loadWeatherAndTemp, 1800000);
 
+      // Pusher functions
+      Pusher.logToConsole = true;
+
+        var pusher = new Pusher('9a5b1aa0f0d8bf706b96', {
+          cluster: 'ap1',
+          forceTLS: true
+        });
+
+        var channel = pusher.subscribe('PiDashDispChannel');
+
+
+        // Signal to refresh news
+        channel.bind('refreshnews', function(data) {
+          // If we get the signal to refresh news, we call a GET to the server
+            // to render the news to replace the DOM
+            $.ajax({
+              method: "GET",
+              url: "newspaneldisplay"
+            }).done(function( msg ) {
+                $("#newscontent").html(msg);
+            });
+
+        });
+
   }); // Close document ready
 

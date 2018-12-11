@@ -22,3 +22,13 @@ body{
     font-weight:700;
     color:#61656b;
 }
+
+#newscontent{
+    font-family: 'Roboto', serif;
+    font-weight: 300;
+    font-size:0.75em;
+}
+
+.newsitem{
+    margin-bottom: 7px;
+}
