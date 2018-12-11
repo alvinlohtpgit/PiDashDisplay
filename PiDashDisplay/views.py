@@ -10,8 +10,10 @@ from PiDashDisplay.models import Feedsource, Feed
 # Create your views here.
 def home(request):
 
-    # Grab the weather
-    return render(request, 'PiDashDisplay/home.html')
+    # Grab the latest 2 news when there is a new news alert
+    latest_news = Feed.objects.order_by("datecreated")[:2]
+
+    return render(request, 'PiDashDisplay/home.html', {latest_news:})
 
 
 def getWeather(request):

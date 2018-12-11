@@ -22,15 +22,26 @@
     <script src="{% static 'PiDashDisplay/js/PiDash.js' %}"></script>
         <div class="container-fluid">
             <div class="row">
-                <!-- Weather Forecast Panel -->
-                <div class="col-md-6 largebannerfont">
+                <!-- Left Forecast Panel -->
+                <div class="col-md-6">
 
-                    <div class="text-center" id="weatherimagepanel"><img src="{% static 'PiDashDisplay/images/sunny.png' %}" /></div>
-                    <div class="text-center littletopspace" id="datedisplaypanel">--</div>
-                    <div class="text-center"><span id="forecastdisplaypanel">-</span> | <span id="tempdisplaypanel">-</span> &#x2103;</div>
+                    <!-- Weather forecast panel -->
+                    <div class="largebannerfont">
+                        <div class="text-center" id="weatherimagepanel"><img src="{% static 'PiDashDisplay/images/sunny.png' %}" /></div>
+                        <div class="text-center littletopspace" id="datedisplaypanel">--</div>
+                        <div class="text-center"><span id="forecastdisplaypanel">-</span> | <span id="tempdisplaypanel">-</span> &#x2103;</div>
+                    </div>
+                    <!-- End forecast panel -->
+
+
+                    <div class="newspanelheader">News Panel</div>
+                    
+
 
                 </div>
-                <!-- End Weather Forecast Panel -->
+                <!-- End Left Panel -->
+
+
 
                 <!-- Right panel -->
                 <div class="col-md-6">Test 2</div>

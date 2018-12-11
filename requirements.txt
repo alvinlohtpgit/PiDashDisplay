@@ -6,3 +6,4 @@ datetime
 Template
 whitenoise
 psycopg2-binary
+pusher
