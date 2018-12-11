@@ -15,3 +15,9 @@ class Feed(models.Model):
     destinationurl = models.CharField(max_length=800)
     thumbnail = models.CharField(max_length=800)
     datecreated = models.DateTimeField(default=datetime.datetime.now, blank=True)
+
+class Todo(models.Model):
+    title = models.CharField(max_length=2000)
+    order = models.IntegerField()
+    datecreated = models.DateTimeField(default=datetime.datetime.now, blank=True)
+    datecompleted = models.DateTimeField(blank=True)

@@ -64,9 +64,9 @@
       }
 
       GetClock();
-      loadWeatherAndTemp();
+      //loadWeatherAndTemp();
       setInterval(GetClock,1000);
-      setInterval(loadWeatherAndTemp, 1800000);
+      //setInterval(loadWeatherAndTemp, 1800000);
 
       // Pusher functions
       Pusher.logToConsole = true;
@@ -91,6 +91,11 @@
             });
 
         });
+
+
+        // Change the tab container
+        $('#tab-container').easytabs();
+
 
   }); // Close document ready
 
