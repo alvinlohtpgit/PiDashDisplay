@@ -146,9 +146,13 @@ def feederendpoint(request):
             #print('Summary : ' + itemSummary)
             #print('Thumbnail : ' + itemThumbnail)
 
-            # Write to db
-            newEntry = fs.feed_set.create(feedid=itemFeedID, title=itemTitle, summary=itemSummary, destinationurl=itemPermaLink, thumbnail=itemThumbnail)
 
-        print("Inserted " + itemFeedID)
+            # Check if the feedid already exist, if don't exist then we write to database
+            countFeed = Feed.objects.filter(feedid=itemFeedID).count()
+
+            # Write to db
+            if countFeed < 1:
+                newEntry = fs.feed_set.create(feedid=itemFeedID, title=itemTitle, summary=itemSummary, destinationurl=itemPermaLink, thumbnail=itemThumbnail)
+                print("Inserted " + itemFeedID)
 
     return HttpResponse('Ok')
