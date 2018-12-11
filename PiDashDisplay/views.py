@@ -12,14 +12,14 @@ import pusher
 def home(request):
 
     # Grab the latest 2 news when there is a new news alert
-    latest_news = Feed.objects.order_by("datecreated")[:3]
+    latest_news = Feed.objects.order_by("datecreated")[:5]
 
     return render(request, 'PiDashDisplay/home.html', {'latest_news': latest_news})
 
 
 def newspaneldisplay(request):
     # Grab the latest 2 news when there is a new news alert
-    latest_news = Feed.objects.order_by("datecreated")[:3]
+    latest_news = Feed.objects.order_by("datecreated")[:5]
 
     return render(request, 'PiDashDisplay/newspanel.html', {'latest_news': latest_news})
 
