@@ -87,24 +87,24 @@ WSGI_APPLICATION = 'PiDashDisp.wsgi.application'
 #    }
 #}
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'rxmfffii',
-#        'USER': 'rxmfffii',
-#        'PASSWORD': 'Y5WxFieSoMaA_Jo4E9pj9RxZvJmdvleq',
-#        'HOST': 'nutty-custard-apple.db.elephantsql.com',
-#        'PORT': '5432'
-#    }
-#}
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'rxmfffii',
+        'USER': 'rxmfffii',
+        'PASSWORD': 'Y5WxFieSoMaA_Jo4E9pj9RxZvJmdvleq',
+        'HOST': 'nutty-custard-apple.db.elephantsql.com',
+        'PORT': '5432'
     }
 }
+
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
 
 
 # Password validation
